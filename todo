@@ -1,0 +1,48 @@
+# ai_todo.py
+
+class AITodoList:
+    def _init_(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append({"task": task, "done": False})
+
+    def mark_done(self, index):
+        if 0 <= index < len(self.tasks):
+            self.tasks[index]["done"] = True
+
+    def view_tasks(self):
+        for idx, task in enumerate(self.tasks):
+            status = "✅" if task["done"] else "❌"
+            print(f"{idx + 1}. [{status}] {task['task']}")
+
+    def sample_tasks(self):
+        return [
+            "Collect and clean dataset",
+            "Train baseline ML model",
+            "Optimize hyperparameters",
+            "Write model evaluation report",
+            "Deploy model with Flask/FastAPI"
+        ]
+
+if _name_ == "_main_":
+    todo = AITodoList()
+    print("🤖 AI/ML Internship To-Do List")
+    todo.tasks = [{"task": task, "done": False} for task in todo.sample_tasks()]
+
+    while True:
+        print("\n1. View Tasks\n2. Add Task\n3. Mark Task as Done\n4. Exit")
+        choice = input("Select an option: ")
+
+        if choice == "1":
+            todo.view_tasks()
+        elif choice == "2":
+            task = input("Enter new task: ")
+            todo.add_task(task)
+        elif choice == "3":
+            idx = int(input("Enter task number to mark as done: ")) - 1
+            todo.mark_done(idx)
+        elif choice == "4":
+            break
+        else:
+            print("Invalid choice.")
